@@ -1,1 +1,2 @@
-# Iteration-Project-fashionsocialplatform-
+# scratchProject
+Fashion Social Networking Program
