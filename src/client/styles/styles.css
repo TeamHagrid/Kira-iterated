@@ -1,0 +1,449 @@
+@import url('https://fonts.googleapis.com/css?family=Fredoka+One');
+
+@keyframes fadeIn {
+    0% {
+      opacity:0;
+    }
+    30%{
+      opacity:0;
+    }
+    100% {
+      opacity:0.6;
+    }
+}
+
+
+@keyframes fadeInLogin {
+    0% {
+      opacity:0;
+    }
+    50%{
+      opacity:0;
+    }
+    100% {
+      opacity:0.6;
+    }
+}
+
+@keyframes fadeInOpac {
+    0% {
+      opacity:0;
+    }
+    30%{
+        opacity:0;
+    }
+    100% {
+      opacity:1;
+    }
+}
+
+@keyframes Shrink {
+    0% {
+        margin-top:200px;
+     height:280px;
+    }
+
+    100% {
+        margin-top:300px;
+
+      height:60px;
+    }
+}
+@keyframes ShrinkTextFadeIn {
+    0% {
+        opacity:0;
+    }
+    50% {
+        opacity:0;
+    }
+    100% {
+        opacity:0.7;
+    }
+}
+
+#modal-root {
+    position: relative;
+    z-index: 999;
+}
+
+.modal {
+    background-color: rgba(0, 0, 0, 0.582);
+    position: fixed;
+    height: 100%;
+    width: 100%;
+    top: 0;
+    left: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+body {
+    margin:0;
+    padding:0;
+}
+
+p {
+    margin:0;
+    padding:0;
+}
+
+.dropZone{
+    animation: 2s ease-out 0s fadeInOpac;
+    color: rgb(243, 192, 188);
+    font-family: 'Arial', sans-serif;
+    text-align: center;
+    margin: 40px auto;
+    padding:40px;
+    border: 2px dashed rgb(243, 192, 188);
+    border-radius: 10px;
+    width: 360px;
+    height: 360px;
+    transition: 1s;
+}
+.dropZone:hover{
+    color: rgb(245, 136, 128);
+    border: 2px dashed rgb(250, 146, 139);
+}
+
+.dropZoneSuccess{
+    background-color:rgb(243, 192, 188);
+}
+.header {
+    z-index:100;
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    margin:0;
+    padding: 0;
+    width: 100%;
+    height:150px;
+    background-color: rgb(243, 192, 188);
+    color:blue;
+}
+
+.photo-loader {
+
+    border : 3px solid rgb(247, 217, 216);
+    border-radius: 5px;
+    margin-top: auto;
+    display:flex;
+    background-color: rgb(243, 192, 188);
+    width: 50px;
+    height:50px;
+    margin:0;
+    padding: 0;
+    transition: border 0.5s;
+}
+
+.photo-loader:hover {
+
+    border : 3px solid rgb(250, 242, 242);
+
+}
+
+/* HO,E PAGE DROP DOWN */
+
+.dropdown {
+    border : 3px solid rgb(184, 74, 70);
+    border-radius: 5px;
+    margin-top: auto;
+    display:flex;
+    background-color: rgb(226, 75, 65);
+    width: 8000px;
+    height:200px;
+    margin:0;
+    padding: 0;
+    transition: border 0.5s;
+    text-align: center;
+}
+.hamburger-click{
+    border-top: 2px solid rgb(238, 166, 160);
+    background-color: rgb(243, 192, 188);
+    height:20px;
+
+}
+.filters-container {
+    padding:10px;
+    display:flex;
+    justify-content: space-around;
+    background-color: rgb(243, 192, 188);
+}
+
+.filter-item {
+    color: white;
+    font-family:"Arial", sans-serif;
+}
+
+.div-shadow {
+    z-index:2;
+    box-shadow: 0px 4px 3px 3px rgb(243, 243, 243);
+}
+/* FORMS */
+.video-div {
+    position:absolute;
+    width:100%;
+    z-index: -10;
+
+}
+.form-login {
+    animation: 4s ease-out 0s fadeInLogin;
+    z-index: 10;
+    margin-top:200px;
+    opacity: 0.7;
+    border : 2px solid rgba(255, 255, 255, 0.959);
+    border-radius: 24px;
+    display:flex;
+    width: 200px;
+    height:200px;
+    padding: 40px 20px;
+    transition: all 0.5s;
+    transition-property: opacity, background-color;
+    text-align: center;
+}
+
+
+.form-login:hover {
+    border-color:#3498db;
+    background-color: rgba(255, 255, 255, 0.1);
+    opacity: 1;
+}
+
+.form-inner {
+    width:100%;
+    display:flex;
+    justify-content: center;
+}
+
+.login-container {
+    height:auto;
+    display:flex;
+    width:auto;
+    justify-content: center;
+}
+
+.login-text {
+    border:0;
+    background:none;
+    opacity : 1!important;
+    width: 120px;
+    margin: 7px auto;
+    box-sizing: border-box;
+    text-align: center;
+    padding: 12px 10px;
+    border: 2px solid #3498db;
+    border-radius:100px;
+    outline: none;
+    color:white;
+    transition: ease-in-out .5s;
+}
+
+.login-text:hover {
+    border-color: #2ecc71;
+    width: 200px;
+ 
+}
+
+.login-submit {
+    border:0;
+    background:none;
+    opacity : 1!important;
+    width: 120px;
+    margin: 7px auto;
+    box-sizing: border-box;
+    text-align: center;
+    padding: 12px 10px;
+    border: 2px solid #3498db;
+    border-radius:20px;
+    outline: none;
+    color:white;
+    transition: 0.2s;
+    cursor:pointer;
+}
+.login-submit:hover {
+    opacity:0.7;
+    border-color:#2ecc71;
+    background-color: #2ecc71; 
+}
+/* .user-pass {
+    display:flex-wrap;
+    border: solid white;
+} */
+
+.back-btn {
+    color: rgb(83, 83, 83);
+    font-family: 'Fredoka One', cursive;
+    background:none;
+    z-index:-100;
+    outline:none;
+    font-size:15px;
+    border:none;
+    height:30px;
+    width: 30px;
+}
+
+.back-btn-container {
+    position:absolute;
+    right:0;
+}
+
+.upload-container{
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+}
+
+.upload-img-container{
+    animation: 2s ease-out 0s fadeInOpac;
+    margin-top:20px;
+}
+
+.upload-img-description-container{
+    animation: 3s ease-out 0s fadeInOpac;
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.upload-img-text-input {
+    outline:none;
+    width:360px;
+    height:200px;
+}
+
+.upload-img-text-header{
+    font-family: "Arial", sans-serif;
+    color:rgb(245, 136, 128);
+}
+
+textarea{
+    font-size: 18px;
+    font-family: "Arial", "sans-serif";
+    border:none;
+    border:2px solid rgb(245, 136, 128);
+}
+
+.success-login {
+    padding-bottom:10px;
+    color:white;
+    font-family: "Arial", sans-serif;
+    display:flex;
+    flex-direction: column;
+    align-items:center;
+    animation: 0.8s ease-out 0s Shrink;
+    margin-top:300px;
+    width:240px;
+    height:60px;
+    border-radius:25px;
+    opacity: 0.7;
+    background-color:rgba(255, 255, 255, 0.1);
+    border: 2px solid #3498db;
+}
+.welcome-text {
+    animation: 2s ease-out 0s ShrinkTextFadeIn;
+    opacity:0.7;
+    margin-top:14px;
+    font-size:20px;
+}
+
+.welcome-user{
+    animation: 2.5s ease-out 0s ShrinkTextFadeIn;
+    opacity:0.7;
+    font-size:19px;
+}
+
+.upload-style-container{
+    margin: 10px 0px;
+    padding:20px auto;
+    display:flex;
+    flex-direction:row;
+}
+
+.title{
+    padding:5px 0px;
+    margin-right:10px;
+}
+
+.style-item{
+    border-radius:50px;
+    border: 1px solid rgb(245, 136, 128);
+    padding:5px;
+    margin:0px 10px;
+    cursor: pointer;
+}
+
+.style-item-click{
+    border-radius:50px;
+    border: 1px solid rgb(245, 136, 128);
+    background: rgb(245, 136, 128);
+    color:white;
+    padding:5px;
+    margin:0px 10px;
+    cursor: pointer;
+}
+
+.imgDisplay{
+    border-left:1.5px solid white;
+    border-right:1.5px solid white;
+
+    animation: 2s ease-out 0s fadeInOpac;
+    width:300px;
+    height:auto;
+}
+
+.display-container{
+    margin: 0 auto;
+    flex-wrap: wrap;
+    display:flex;
+}
+
+.display-outer-container {
+
+    margin: 10px auto;
+    display:flex;
+    align-content: center;
+    justify-content: center;
+}
+
+.display-meta{
+
+}
+
+.modal-container {
+    height:90%;
+    animation: 2s ease-out 0s fadeInOpac;
+    display:flex
+}
+.modal-left-container{
+    padding-top:90px;
+    background: rgb(27, 27, 27);
+
+}
+.modal-right-container{
+    background: white;
+    width:400px;
+    height:auto;
+}
+
+
+.top-right-inner-container{
+    margin-top:10px;
+    padding-top:20px;
+    padding-left:30px;
+}
+.top-right-container{
+    padding:2px 4px;
+    color: rgb(83, 83, 83);
+    font-family: 'Fredoka One', cursive;
+    float:right
+}
+
+.modal-text{
+    font-family:"Arial", sans-serif;
+    margin-top:20px;
+    padding-bottom:10px;
+}
+
+.likes-container{
+    font-family: "Arial", sans-serif;
+}
