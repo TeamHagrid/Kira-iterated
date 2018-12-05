@@ -213,8 +213,6 @@ class App extends React.Component {
           topPictureList: response.data,
           displayPicArr: arr,
         })
-
-      })
       .catch(err => {
         console.log(err)
       })
