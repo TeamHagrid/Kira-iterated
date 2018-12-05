@@ -1,5 +1,6 @@
 import React from 'react';
 import Login from './../router/Login.jsx'
+import Signup from './../router/Signup.jsx'
 import { Router, Route, Switch } from 'react-router-dom'
 import Home from './../router/Home.jsx'
 import history from './../router/history.jsx'
@@ -43,7 +44,8 @@ class App extends React.Component {
       this.handleShowModal = this.handleShowModal.bind(this);
       this.ExitModal = this.ExitModal.bind(this);
 
-
+      this.handleSignup = this.handleSignup.bind(this);
+      this.handleSignupSubmit = this.handleSignupSubmit.bind(this)
 
 
     }
@@ -115,6 +117,32 @@ class App extends React.Component {
                 console.log(err)
             })
             
+    }
+
+    handleSignupSubmit(event) {
+        event.preventDefault();
+
+        axios.post("http://localhost:3000/signup", {
+            username: this.state.username,
+            password: this.state.password,
+        })
+            .then(response => {
+                this.setState({
+                    userUuid: response.data,
+                    isAuthenticated: true,
+                })
+                window.setTimeout(() => {
+                    history.push('/home');
+                 }, 3400)
+            })
+            .catch( err => {
+                console.log(err)
+            })
+
+    }
+
+    handleSignup() {
+        history.push('/Signup')
     }
 
     handlePicSubmit(event) {
@@ -216,14 +244,25 @@ class App extends React.Component {
             // ROUTES
             <Router history={history}>
                 <Switch>
-
                     <Route exact path="/"
                         render={(props) =>
                             <Login {...props}
                                 parentState={this.state}
                                 handleUsername={this.handleUsername}
                                 handlePassword={this.handlePassword}
-                                handleLoginSubmit={this.handleLoginSubmit} />
+                                handleLoginSubmit={this.handleLoginSubmit}
+                                handleSignup={this.handleSignup}
+                                 />
+                        }
+                    />
+                    <Route path="/Signup" 
+                        render={(props) => 
+                        <Signup {...props}
+                            parentState={this.state}
+                                handleUsername={this.handleUsername}
+                                handlePassword={this.handlePassword}
+                                handleLoginSubmit={this.handleLoginSubmit}
+                                handleSignup={this.handleSignup} />
                         }
                     />
                     <Route path="/home"

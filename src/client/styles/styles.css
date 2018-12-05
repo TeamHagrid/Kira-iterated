@@ -202,9 +202,25 @@ p {
     text-align: center;
 }
 
+.form-signup {
+   
+    z-index: 10;
+    margin-top:200px;
+    opacity: 0.7;
+    border : 2px solid rgba(255, 255, 255, 0.959);
+    border-radius: 24px;
+    display:flex;
+    width: 200px;
+    height:200px;
+    padding: 40px 20px;
+    transition: all 0.5s;
+    transition-property: opacity, background-color;
+    text-align: center;
+}
+
 
 .form-login:hover {
-    border-color:#3498db;
+    border-color:#FF8DBF;
     background-color: rgba(255, 255, 255, 0.1);
     opacity: 1;
 }
@@ -213,6 +229,17 @@ p {
     width:100%;
     display:flex;
     justify-content: center;
+    position: relative;
+    top: -20px;
+}
+
+.form-signinner {
+    animation: 4s ease-out 0s fadeInLogin;
+    width:100%;
+    display:flex;
+    justify-content: center;
+    position: relative;
+    top: -20px;
 }
 
 .login-container {
@@ -221,7 +248,12 @@ p {
     width:auto;
     justify-content: center;
 }
-
+.signup-container {
+    height:auto;
+    display:flex;
+    width:auto;
+    justify-content: center;
+}
 .login-text {
     border:0;
     background:none;
@@ -231,7 +263,7 @@ p {
     box-sizing: border-box;
     text-align: center;
     padding: 12px 10px;
-    border: 2px solid #3498db;
+    border: 2px solid white;
     border-radius:100px;
     outline: none;
     color:white;
@@ -239,11 +271,32 @@ p {
 }
 
 .login-text:hover {
-    border-color: #2ecc71;
+    border-color: #FF8DBF;
     width: 200px;
  
 }
 
+.signup-text {
+    border:0;
+    background:none;
+    opacity : 1!important;
+    width: 120px;
+    margin: 7px auto;
+    box-sizing: border-box;
+    text-align: center;
+    padding: 12px 10px;
+    border: 2px solid white;
+    border-radius:100px;
+    outline: none;
+    color:white;
+    transition: ease-in-out .5s;
+}
+
+.signup-text:hover {
+    border-color: #FF8DBF;
+    width: 200px;
+ 
+}
 .login-submit {
     border:0;
     background:none;
@@ -253,7 +306,7 @@ p {
     box-sizing: border-box;
     text-align: center;
     padding: 12px 10px;
-    border: 2px solid #3498db;
+    border: 2px solid white;
     border-radius:20px;
     outline: none;
     color:white;
@@ -262,8 +315,31 @@ p {
 }
 .login-submit:hover {
     opacity:0.7;
-    border-color:#2ecc71;
-    background-color: #2ecc71; 
+    border-color:#FF8DBF;
+    background-color: #FF8DBF; 
+}
+
+.signup-submit {
+    border:0;
+    background:none;
+    opacity : 1!important;
+    width: 120px;
+    margin: 7px auto;
+    box-sizing: border-box;
+    text-align: center;
+    padding: 12px 10px;
+    border: 2px solid white;
+    border-radius:20px;
+    outline: none;
+    color:white;
+    transition: 0.2s;
+    cursor:pointer;
+}
+
+.signup-submit:hover {
+    opacity:0.7;
+    border-color:#FF8DBF;
+    background-color: #FF8DBF; 
 }
 /* .user-pass {
     display:flex-wrap;
