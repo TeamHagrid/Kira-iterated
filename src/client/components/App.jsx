@@ -196,7 +196,7 @@ class App extends React.Component {
         })
     }
 
-    handleUrlAndTextSubmit(){
+    handleUrlAndTextSubmit() {
         event.preventDefault();
         axios.post("http://localhost:3000/uploadPicture", {
             userUuid: this.state.userUuid,
