@@ -2,6 +2,7 @@ import React from 'react';
 import history from './history.jsx'
 import PhotoUpload from './PhotoUpload.jsx'
 import PhotoDisplay from './PhotoDisplay.jsx'
+import CommentsDisplay from './CommentsDisplay.jsx'
 import Collapsible from 'react-collapsible';
 import ReactDOM from 'react-dom';
 
@@ -72,8 +73,11 @@ class Home extends React.Component {
                 <div className="modal-text">{this.props.parentState.modalImgInfo.description} </div>
                 <div className="likes-container">
                   <div>{this.props.parentState.modalImgInfo.likes} likes </div>
-                  
                 </div>
+              <div className="bottom-half-container">
+                <div className="comments-container">
+                </div>
+              </div>
               </div>
             </div>
           </div>

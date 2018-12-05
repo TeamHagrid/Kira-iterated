@@ -31,7 +31,9 @@ class App extends React.Component {
       uploadStyleClickWinter: false,
       topPictureList: {},
       displayPicArr: [],
+      displayComments: [],
       showDeleteButton: false,
+
     }
     this.handleUsername = this.handleUsername.bind(this);
     this.handlePassword = this.handlePassword.bind(this);
@@ -54,6 +56,7 @@ class App extends React.Component {
     this.handleSignup = this.handleSignup.bind(this);
     this.handleSignupSubmit = this.handleSignupSubmit.bind(this);
     this.handleDeletePic = this.handleDeletePic.bind(this);
+    this.getComments = this.getComments.bind(this);
   }
 
   handleDeletePic(event) {
@@ -74,10 +77,6 @@ class App extends React.Component {
             showDeleteButton: true
         })
     };
-    console.log("user:" + this.state.userUuid)
-    
-    console.log("picture:" + this.state.topPictureList[key].userid)
-    console.log(this.state.userUuid === this.state.topPictureList[key].userid)
     this.setState({
       showModal: true,
       modalImgInfo: this.state.topPictureList[key],
@@ -256,6 +255,14 @@ class App extends React.Component {
         console.log(err)
       })
   }
+
+  // getComments() {
+  //   axios.get("http://localhost:3000/comments")
+  //     .then(response => {
+  //       let arr = []
+  //       for (let key in response.data)
+  //     })
+  // }
 
   render() {
     return (

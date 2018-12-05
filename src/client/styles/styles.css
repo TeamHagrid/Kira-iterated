@@ -552,6 +552,19 @@ textarea{
     padding-top:20px;
     padding-left:30px;
 }
+.bottom-half-container{
+    margin-top: 30px;
+    margin-bottom: 15px;
+    width: 350px;
+    height: 550px;
+    position:relative;
+}
+.comments-container{
+    position:absolute;
+    display:flex;
+    width:325px;
+    height:525px;
+}
 .top-right-container{
     padding:2px 4px;
     color: rgb(83, 83, 83);
