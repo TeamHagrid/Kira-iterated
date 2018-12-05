@@ -4,6 +4,9 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors')
 const app = express();
+require('./services/passport');
+
+require('./authRoutes')(app);
 
 // requirements for using geoip library
 require('dotenv').config();
@@ -120,6 +123,9 @@ const grabPassword = (req, res, next) => {
 // get route for pictures
 app.get('/pictures', grabPics);
 
+/// middleware for grabbing oauth token
+
+
 // send login to database
 app.post('/login', grabUserId, updateCityId, (req, res) => {
   return res.json(res.locals.userid);
@@ -139,22 +145,6 @@ app.post('/uploadPicture', (req, res) => {
       return res.send('ERROR! Could not save picture to database');
     });
 })
-
-// testing connection to database 
-
-// app.post('/city', (req, res, next) => {
-//   db.any('INSERT INTO city(id, name, state) VALUES (uuid_generate_v4(), $1, $2);', [res.locals.city, res.locals.state])
-//     .then((data) => {
-//       res.json(data);
-//       next();
-//     })
-//     .catch((error) => {
-//       // error;
-//       console.log(error);
-//       res.send('ERROR! Could not send to database');
-//     });
-// });
-
 
 // NEW ROUTE FOR SIGNUP
 app.post('/signup', (req, res, next) => {
