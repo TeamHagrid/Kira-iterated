@@ -198,21 +198,11 @@ class App extends React.Component {
           arr.push(<div><img id={key} onClick={this.handleShowModal} src={img_url_crop} className="imgDisplay" /></div>)
         }
         this.setState({
-            uploadStyleClickOutDoor : !this.state.uploadStyleClickOutDoor,
-        })
-    }
-
-    handleUrlAndTextSubmit() {
-        event.preventDefault();
-        axios.post("http://localhost:3000/uploadPicture", {
-            userUuid: this.state.userUuid,
-            uploadedFileCloudinaryUrl: this.state.uploadedFileCloudinaryUrl,
-            uploadText: this.state.uploadText,
-            uploadStyleClickNightOut: this.state.uploadStyleClickNightOut,
-            uploadStyleClickOutDoor: this.state.uploadStyleClickOutDoor,
           topPictureList: response.data,
           displayPicArr: arr,
         })
+
+      })
       .catch(err => {
         console.log(err)
       })
