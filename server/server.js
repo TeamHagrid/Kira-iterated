@@ -4,6 +4,9 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors')
 const app = express();
+require('./services/passport');
+
+require('./authRoutes')(app);
 
 // requirements for using geoip library
 require('dotenv').config();
@@ -121,19 +124,10 @@ const grabPassword = (req, res, next) => {
 app.get('/pictures', grabPics);
 
 /// middleware for grabbing oauth token
-const grabToken = (req, res, next) => {
-  // app.get('https://accounts.google.com/o/oauth2/v2/auth');
-  app.get('https://accounts.google.com/o/oauth2/v2/auth?client_id=767857947467-5duvj6ocltdc4av69v0kv1l2qrfln4lg.apps.googleusercontent.com&response_type=code&scope=https://www.googleapis.com/auth/gmail.send&redirect_uri=https://goo.gl/5Zxrjc&access_type=offline')
-  console.log('calling!')
-  next();
-}
 
-const returnToken = (req, res, next) => {
-  app.post('https://www.googleapis.com/oauth2/v4/token')
-}
 
 // send login to database
-app.post('/login', grabUserId, updateCityId, grabToken, (req, res) => {
+app.post('/login', grabUserId, updateCityId, (req, res) => {
   return res.json(res.locals.userid);
 });
 
@@ -151,14 +145,6 @@ app.post('/uploadPicture', (req, res) => {
       return res.send('ERROR! Could not save picture to database');
     });
 })
-
-/////////////////
-// middleware for grabbing token 
-
-// app.get('/login', grabToken, (req, res) => {
-//   return res.json(res.locals.userid);
-// });
-
 
 // NEW ROUTE FOR SIGNUP
 app.post('/signup', (req, res, next) => {
