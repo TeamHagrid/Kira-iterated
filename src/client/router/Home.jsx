@@ -113,10 +113,10 @@ class Home extends React.Component {
                 handleUploadText={this.props.handleUploadText}
                 uploadOnclickStyleOutDoor={this.props.uploadOnclickStyleOutDoor}
                 uploadOnclickStyleNightOut={this.props.uploadOnclickStyleNightOut}
-                uploadOnclickStyleSpring={this.uploadOnclickStyleSpring}
-                uploadOnclickStyleSummer={this.uploadOnclickStyleSummer}
-                uploadOnclickStyleFall={this.uploadOnclickStyleFall}
-                uploadOnclickStyleWinter={this.uploadOnclickStyleWinter}
+                uploadOnclickStyleSpring={this.props.uploadOnclickStyleSpring}
+                uploadOnclickStyleSummer={this.props.uploadOnclickStyleSummer}
+                uploadOnclickStyleFall={this.props.uploadOnclickStyleFall}
+                uploadOnclickStyleWinter={this.props.uploadOnclickStyleWinter}
                 handleUrlAndTextSubmit={this.props.handleUrlAndTextSubmit}
               />
             } />

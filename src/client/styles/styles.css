@@ -397,6 +397,8 @@ p {
     border:none;
     height:30px;
     width: 30px;
+    position:absolute;
+    z-index: 0;
 }
 
 .upload-container{
@@ -554,7 +556,9 @@ textarea{
     padding:2px 4px;
     color: rgb(83, 83, 83);
     font-family: 'Fredoka One', cursive;
-    float:right
+    float:right;
+    position:relative;
+    left:-30px;
 }
 
 .modal-text{
