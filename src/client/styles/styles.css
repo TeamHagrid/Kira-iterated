@@ -358,7 +358,6 @@ p {
     height:30px;
     width: 30px;
 }
-
 .back-btn-container {
     position:absolute;
     right:0;
@@ -368,7 +367,7 @@ p {
     background-color: rgb(245, 136, 128);
     border: none;
     color: white;
-    padding: 10px 25px;
+    padding: 5px 25px;
     text-align: center;
     text-decoration: none;
     display: inline-block;
@@ -381,6 +380,23 @@ p {
     border: 2px solid rgb(245, 136, 128);
     color: rgb(245, 136, 128);
     border-radius: 4px;
+}
+
+.delete-button-container {
+    position:relative;
+    top:80;
+}
+
+.close-button {
+    color: rgb(83, 83, 83);
+    font-family: 'Fredoka One', cursive;
+    background:none;
+    z-index:-100;
+    outline:none;
+    font-size:15px;
+    border:none;
+    height:30px;
+    width: 30px;
 }
 
 .upload-container{
@@ -449,6 +465,13 @@ textarea{
 }
 
 .upload-style-container{
+    margin: 10px 0px;
+    padding:20px auto;
+    display:flex;
+    flex-direction:row;
+}
+
+.upload-seasons-container{
     margin: 10px 0px;
     padding:20px auto;
     display:flex;

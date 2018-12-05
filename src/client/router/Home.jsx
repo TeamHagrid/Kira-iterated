@@ -53,17 +53,19 @@ class Home extends React.Component {
     }
     const modal = this.props.parentState.showModal ? (
       <Modal>
-        <div className="modal" onClick={this.props.ExitModal}>
+        <div className="modal">
           <div className="modal-container">
             <div className="modal-left-container">
               <img src={this.props.parentState.modalImgInfo.picture_url} style={popUpImg} />
             </div>
             <div className="modal-right-container">
               <div className="top-right-container">
-                    {this.props.parentState.showDeleteButton?<div className='delete'><input className="delete-button" type="submit" value="Delete" /></div>: null}
-                </div>
+                <div onClick={this.props.ExitModal} className='close'><input className="close-button" type="submit" value="X" /></div>
+              </div>
               <div className="top-right-inner-container">
-
+                <div className="delete-button-container">
+                  {this.props.parentState.showDeleteButton?<div onClick={this.props.handleDeletePic} className='delete'><input className="delete-button" type="submit" value="Delete" /></div>: null}
+                </div>
                 <div>
                   <img src="http://res.cloudinary.com/dwbr9kbj2/image/upload/w_70,h_70,c_thumb,r_max,g_face/v1543878350/ccbd98n2hjesusaqzwl7.png" />
                 </div>
@@ -111,6 +113,10 @@ class Home extends React.Component {
                 handleUploadText={this.props.handleUploadText}
                 uploadOnclickStyleOutDoor={this.props.uploadOnclickStyleOutDoor}
                 uploadOnclickStyleNightOut={this.props.uploadOnclickStyleNightOut}
+                uploadOnclickStyleSpring={this.uploadOnclickStyleSpring}
+                uploadOnclickStyleSummer={this.uploadOnclickStyleSummer}
+                uploadOnclickStyleFall={this.uploadOnclickStyleFall}
+                uploadOnclickStyleWinter={this.uploadOnclickStyleWinter}
                 handleUrlAndTextSubmit={this.props.handleUrlAndTextSubmit}
               />
             } />

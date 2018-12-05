@@ -51,8 +51,15 @@ class PhotoUpload extends React.Component {
                   <div className="upload-style-container">
                     <div className="title">Style: </div>
                     <div className={!this.props.parentState.uploadStyleClickNightOut ? 'style-item' : 'style-item-click'} onClick={this.props.uploadOnclickStyleNightOut} >NightLife</div>
-                    <div className={!this.props.parentState.uploadStyleClickOutDoor ? 'style-item' : 'style-item-click'} onClick={this.props.uploadOnclickStyleOutDoor} >OutDoor</div>
+                    <div className={!this.props.parentState.uploadStyleClickOutDoor ? 'style-item' : 'style-item-click'} onClick={this.props.uploadOnclickStyleOutDoor} >Outdoor</div>
                   </div>
+                  <div className="upload-seasons-container">
+                    <div className="title">Season: </div>
+                      <div className={!this.props.parentState.uploadStyleClickSpring ? 'style-item' : 'style-item-click'} onClick={this.props.uploadOnclickStyleSpring} >Spring</div>
+                      <div className={!this.props.parentState.uploadStyleClickSummer ? 'style-item' : 'style-item-click'} onClick={this.props.uploadOnclickStyleSummer} >Summer</div>
+                      <div className={!this.props.parentState.uploadStyleClickFall ? 'style-item' : 'style-item-click'} onClick={this.props.uploadOnclickStyleFall} >Fall</div>
+                      <div className={!this.props.parentState.uploadStyleClickWinter ? 'style-item' : 'style-item-click'} onClick={this.props.uploadOnclickStyleWinter} >Winter</div>
+                   </div>
                   <form onSubmit={this.props.handleUrlAndTextSubmit}>
                     <textarea className="upload-img-text-input" type="text" value={this.props.uploadText} onChange={this.props.handleUploadText}>
                     </textarea>

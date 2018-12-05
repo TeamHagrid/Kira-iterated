@@ -37,9 +37,7 @@ class Login extends React.Component {
                 </div>
                 <div className='submit'><input className="login-submit" type="submit" value="Log In" /></div>
               </form>
-              
                 <div onClick={this.props.handleSignup} className='signup'><input className="signup-submit" type="submit" value="Sign Up!" /></div>
-            
             </div>
           </div>
           : <div className="success-login">

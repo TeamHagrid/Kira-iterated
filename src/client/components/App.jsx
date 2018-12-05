@@ -8,7 +8,7 @@ import PhotoUpload from './../router/PhotoUpload.jsx'
 import axios from 'axios'
 
 const CLOUDINARY_UPLOAD_PRESET = 'wc1bxbvc';
-const CLOUDINARY_UPLOAD_URL = 'https://api.cloudinary.com/v1_1/dnoqyhynt/image/upload';
+const CLOUDINARY_UPLOAD_URL = 'https://api.cloudinary.com/v1_1/wc1bxbvc/image/upload';
 
 class App extends React.Component {
   constructor(props) {
@@ -25,6 +25,10 @@ class App extends React.Component {
       uploadText: "",
       uploadStyleClickNightOut: false,
       uploadStyleClickOutDoor: false,
+      uploadStyleClickSpring: false,
+      uploadStyleClickSummer: false,
+      uploadStyleClickFall: false,
+      uploadStyleClickWinter: false,
       topPictureList: {},
       displayPicArr: [],
       showDeleteButton: false,
@@ -39,13 +43,23 @@ class App extends React.Component {
     this.uploadImageReturnHome = this.uploadImageReturnHome.bind(this);
     this.uploadOnclickStyleNightOut = this.uploadOnclickStyleNightOut.bind(this);
     this.uploadOnclickStyleOutDoor = this.uploadOnclickStyleOutDoor.bind(this);
+    this.uploadOnclickStyleSpring = this.uploadOnclickStyleSpring.bind(this);
+    this.uploadOnclickStyleSummer = this.uploadOnclickStyleSummer.bind(this);
+    this.uploadOnclickStyleFall = this.uploadOnclickStyleFall.bind(this);
+    this.uploadOnclickStyleWinter = this.uploadOnclickStyleWinter.bind(this);
     this.handleUrlAndTextSubmit = this.handleUrlAndTextSubmit.bind(this);
     this.getTopPictureUrls = this.getTopPictureUrls.bind(this);
     this.handleShowModal = this.handleShowModal.bind(this);
     this.ExitModal = this.ExitModal.bind(this);
     this.handleSignup = this.handleSignup.bind(this);
-    this.handleSignupSubmit = this.handleSignupSubmit.bind(this)
+    this.handleSignupSubmit = this.handleSignupSubmit.bind(this);
+    this.handleDeletePic = this.handleDeletePic.bind(this);
   }
+
+  handleDeletePic(event) {
+
+  }
+
   ExitModal() {
     this.setState({
       showModal: false,
@@ -76,11 +90,11 @@ class App extends React.Component {
       const formData = new FormData();
       formData.append("file", image);
       formData.append("upload_preset", CLOUDINARY_UPLOAD_PRESET); // Replace the preset name with your own
-      formData.append("api_key", 484393632848713); // Replace API key with your own Cloudinary API key
+      formData.append("api_key", 981579266528747); // Replace API key with your own Cloudinary API key
       formData.append("timestamp", (Date.now() / 1000) | 0);
       // Replace cloudinary upload URL with yours
       return axios.post(
-        "https://api.cloudinary.com/v1_1/dwbr9kbj2/image/upload",
+        CLOUDINARY_UPLOAD_URL,
         formData,
         { headers: { "X-Requested-With": "XMLHttpRequest" } })
         .then(response => {
@@ -183,6 +197,26 @@ class App extends React.Component {
       uploadStyleClickOutDoor: !this.state.uploadStyleClickOutDoor,
     })
   }
+  uploadOnclickStyleSpring() {
+    this.setState({
+      uploadStyleClickSpring: !this.state.uploadStyleClickSpring,
+    })
+  }
+  uploadOnclickStyleSummer() {
+    this.setState({
+      uploadStyleClickSummer: !this.state.uploadStyleClickSummer,
+    })
+  }
+  uploadOnclickStyleFall() {
+    this.setState({
+      uploadStyleClickFall: !this.state.uploadStyleClickFall,
+    })
+  }
+  uploadOnclickStyleWinter() {
+    this.setState({
+      uploadStyleClickWinter: !this.state.uploadStyleClickWinter,
+    })
+  }
   handleUrlAndTextSubmit() {
     event.preventDefault();
     axios.post("http://localhost:3000/uploadPicture", {
@@ -191,6 +225,10 @@ class App extends React.Component {
       uploadText: this.state.uploadText,
       uploadStyleClickNightOut: this.state.uploadStyleClickNightOut,
       uploadStyleClickOutDoor: this.state.uploadStyleClickOutDoor,
+      uploadStyleClickSpring: this.state.uploadStyleClickSpring,
+      uploadStyleClickSummer: this.state.uploadStyleClickSummer,
+      uploadStyleClickFall: this.state.uploadStyleClickFall,
+      uploadStyleClickWinter: this.state.uploadStyleClickWinter,
     })
       .then(response => {
         console.log(response);
@@ -255,6 +293,10 @@ class App extends React.Component {
                 handleUploadText={this.handleUploadText}
                 uploadOnclickStyleOutDoor={this.uploadOnclickStyleOutDoor}
                 uploadOnclickStyleNightOut={this.uploadOnclickStyleNightOut}
+                uploadOnclickStyleSpring={this.uploadOnclickStyleSpring}
+                uploadOnclickStyleSummer={this.uploadOnclickStyleSummer}
+                uploadOnclickStyleFall={this.uploadOnclickStyleFall}
+                uploadOnclickStyleWinter={this.uploadOnclickStyleWinter}
                 handleUrlAndTextSubmit={this.handleUrlAndTextSubmit}
                 getTopPictureUrls={this.getTopPictureUrls}
                 ExitModal={this.ExitModal}
