@@ -141,24 +141,23 @@ app.post('/uploadPicture', (req, res) => {
 })
 
 // testing connection to database 
-const insertCity = () => {
-  app.post('/city', (req, res, next) => {
-    db.any('INSERT INTO city(id, name, state) VALUES (uuid_generate_v4(), $1, $2);', [res.locals.city, res.locals.state])
-      .then((data) => {
-        res.json(data);
-        next();
-      })
-      .catch((error) => {
-        // error;
-        console.log(error);
-        res.send('ERROR! Could not send to database');
-      });
-  });
-}
+
+// app.post('/city', (req, res, next) => {
+//   db.any('INSERT INTO city(id, name, state) VALUES (uuid_generate_v4(), $1, $2);', [res.locals.city, res.locals.state])
+//     .then((data) => {
+//       res.json(data);
+//       next();
+//     })
+//     .catch((error) => {
+//       // error;
+//       console.log(error);
+//       res.send('ERROR! Could not send to database');
+//     });
+// });
 
 
 // NEW ROUTE FOR SIGNUP
-app.post('/signup', insertCity, (req, res, next) => {
+app.post('/signup', (req, res, next) => {
   db.any('INSERT INTO users(id, username, password, city, latitude, longitude) VALUES (uuid_generate_v4(), $1, $2, $3, $4, $5);', [req.body.username, req.body.password, 'e32c724b-ea5e-4994-9d95-80a27d6fc830', req.body.latitude, req.body.longitude])
     .then((data) => {
       res.json(data)

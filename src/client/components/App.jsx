@@ -230,7 +230,7 @@ class App extends React.Component {
                 parentState={this.state}
                 handleUsername={this.handleUsername}
                 handlePassword={this.handlePassword}
-                handleLoginSubmit={this.handleLoginSubmit}
+                handleSignupSubmit={this.handleSignupSubmit}
                 handleSignup={this.handleSignup} />
             }
           />
