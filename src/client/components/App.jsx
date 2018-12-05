@@ -27,6 +27,12 @@ class App extends React.Component {
       uploadStyleClickOutDoor: false,
       topPictureList: {},
       displayPicArr: [],
+      ip: "",
+      longitude: "",
+      latitude: "",
+      state: "",
+      city: "",
+
     }
     this.handleUsername = this.handleUsername.bind(this);
     this.handlePassword = this.handlePassword.bind(this);
@@ -43,7 +49,8 @@ class App extends React.Component {
     this.handleShowModal = this.handleShowModal.bind(this);
     this.ExitModal = this.ExitModal.bind(this);
     this.handleSignup = this.handleSignup.bind(this);
-    this.handleSignupSubmit = this.handleSignupSubmit.bind(this)
+    this.handleSignupSubmit = this.handleSignupSubmit.bind(this);
+    this.getIPInfo = this.getIPInfo.bind(this);
   }
   ExitModal() {
     this.setState({
@@ -84,6 +91,30 @@ class App extends React.Component {
     axios.all(uploads).then(() => {
       // ... do anything after successful upload. You can setState() or save the data
       console.log('Images have all being uploaded')
+    });
+  }
+  getIPInfo() {
+    fetch('https://json.geoiplookup.io/api')
+    .then(
+      function(response) {
+        if (response.status !== 200) {
+          console.log('Problem getting IP. Status Code: ' + response.status);
+          return;
+        }
+        response.json().then(function(data) {
+          this.setState({
+            ip: data.ip,
+            longitude: data.longitude,
+            latitude: data.latitude,
+            state: data.region,
+            city: data.city,
+          })
+          console.log(data);
+        });
+      }
+    )
+    .catch(function(err) {
+      console.log('Fetch Error :-S', err);
     });
   }
   handleLoginSubmit(event) {
@@ -206,6 +237,10 @@ class App extends React.Component {
       .catch(err => {
         console.log(err)
       })
+  }
+
+  componentDidMount() {
+    this.getIPInfo();
   }
 
   render() {
