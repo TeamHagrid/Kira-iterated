@@ -231,7 +231,7 @@ p {
     flex-direction: column;
     justify-content: center;
     position: relative;
-    top: -20px;
+    top: -5px;
 }
 
 .form-signinner {
@@ -240,7 +240,7 @@ p {
     display:flex;
     justify-content: center;
     position: relative;
-    top: -20px;
+    top: 5px;
 }
 
 .login-container {
@@ -364,6 +364,25 @@ p {
     right:0;
 }
 
+.delete-button {
+    background-color: rgb(245, 136, 128);
+    border: none;
+    color: white;
+    padding: 10px 25px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    transition-duration: 0.4s;
+}
+
+.delete-button:hover {
+    background-color: white;
+    border: 2px solid rgb(245, 136, 128);
+    color: rgb(245, 136, 128);
+    border-radius: 4px;
+}
+
 .upload-container{
     display:flex;
     flex-direction:column;
@@ -414,7 +433,7 @@ textarea{
     border-radius:25px;
     opacity: 0.7;
     background-color:rgba(255, 255, 255, 0.1);
-    border: 2px solid #3498db;
+    border: 2px solid #FF8DBF;
 }
 .welcome-text {
     animation: 2s ease-out 0s ShrinkTextFadeIn;

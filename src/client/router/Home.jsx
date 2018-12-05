@@ -27,6 +27,7 @@ class Modal extends React.Component {
   componentWillUnmount() {
     // Remove the element from the DOM when we unmount
     modalRoot.removeChild(this.el);
+    
   }
 
   render() {
@@ -45,9 +46,6 @@ class Home extends React.Component {
     super(props)
   }
 
-
-
-
   render() {
     const popUpImg = {
       width: "500px",
@@ -62,15 +60,17 @@ class Home extends React.Component {
             </div>
             <div className="modal-right-container">
               <div className="top-right-container">
-                X
-                            </div>
+                    {this.props.parentState.showDeleteButton?<div className='delete'><input className="delete-button" type="submit" value="Delete" /></div>: null}
+                </div>
               <div className="top-right-inner-container">
+
                 <div>
                   <img src="http://res.cloudinary.com/dwbr9kbj2/image/upload/w_70,h_70,c_thumb,r_max,g_face/v1543878350/ccbd98n2hjesusaqzwl7.png" />
                 </div>
                 <div className="modal-text">{this.props.parentState.modalImgInfo.description} </div>
                 <div className="likes-container">
                   <div>{this.props.parentState.modalImgInfo.likes} likes </div>
+                  
                 </div>
               </div>
             </div>

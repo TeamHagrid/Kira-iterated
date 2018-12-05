@@ -27,6 +27,7 @@ class App extends React.Component {
       uploadStyleClickOutDoor: false,
       topPictureList: {},
       displayPicArr: [],
+      showDeleteButton: false,
     }
     this.handleUsername = this.handleUsername.bind(this);
     this.handlePassword = this.handlePassword.bind(this);
@@ -48,11 +49,21 @@ class App extends React.Component {
   ExitModal() {
     this.setState({
       showModal: false,
+      showDeleteButton: false,
     });
   }
   handleShowModal(event) {
     let key = event.target.id;
-    console.log(this.state.topPictureList[key])
+    // console.log(this.state.topPictureList[key].userid)
+    if (this.state.topPictureList[key].userid === this.state.userUuid) {
+        this.setState({
+            showDeleteButton: true
+        })
+    };
+    console.log("user:" + this.state.userUuid)
+    
+    console.log("picture:" + this.state.topPictureList[key].userid)
+    console.log(this.state.userUuid === this.state.topPictureList[key].userid)
     this.setState({
       showModal: true,
       modalImgInfo: this.state.topPictureList[key],
