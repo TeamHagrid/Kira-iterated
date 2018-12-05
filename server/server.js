@@ -11,26 +11,19 @@ const GeoIP = require('simple-geoip');
 
 const geoip = new GeoIP(process.env.geoipkey);
 
-// localhost:3000
 const PORT = 3000;
 app.use(cors());
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false}));
+app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(__dirname + '/../../dist'));
-
-
-
 
 // automatically call getIpAddress and grabLocation
 app.use(getIpAddress, grabLocation, grabCityId)
 
-
-
-
 // function that is grabbing and saving the ip address
-function getIpAddress(req, res, next)  {
-// Middleware that grabs IP address of the client; should be able to be
-// done based on requests but have not done yet; set to Los Angeles
+function getIpAddress(req, res, next) {
+  // Middleware that grabs IP address of the client; should be able to be
+  // done based on requests but have not done yet; set to Los Angeles
   const ipaddress = '74.87.214.86';
   // Throw an error if there is an issue with the ipaddress
   if (!ipaddress) { return res.send('Cannot get ipaddress') }
@@ -40,7 +33,7 @@ function getIpAddress(req, res, next)  {
 }
 
 // from the ipAddress; store state, city, latitude, and longitude
-function grabLocation (req, res, next) {
+function grabLocation(req, res, next) {
   geoip.lookup('74.87.214.86', (err, data) => {
     if (err) throw err;
     else {
@@ -54,7 +47,7 @@ function grabLocation (req, res, next) {
 }
 
 // store id into locals after username and password is submitted
-function grabUserId (req, res, next) {
+function grabUserId(req, res, next) {
   db.any('SELECT id FROM users WHERE (username = $1 AND password = $2)', [req.body.username, req.body.password])
     .then((data) => {
       res.locals.userid = data[0].id;
@@ -67,7 +60,7 @@ function grabUserId (req, res, next) {
 }
 
 //grabs the city ID and store into local
-function grabCityId (req, res, next) {
+function grabCityId(req, res, next) {
   db.any('SELECT id FROM city WHERE (name = $1 AND state = $2)', [res.locals.city, res.locals.state])
     .then((data) => {
       res.locals.cityid = data[0].id;
@@ -80,7 +73,7 @@ function grabCityId (req, res, next) {
 }
 
 // this updates the city ID for users whenever they log in;
-function updateCityId (req, res, next) {
+function updateCityId(req, res, next) {
   db.any('UPDATE users SET city = $1 WHERE id = $2', [res.locals.cityid, res.locals.userid])
     .then((data) => {
       console.log('Successfully updated city ID');
@@ -93,7 +86,7 @@ function updateCityId (req, res, next) {
 }
 
 // middleware for grabbing the pictures from the database
-function grabPics (req, res, next) {
+function grabPics(req, res, next) {
   console.log(res.locals.cityid)
   db.any('SELECT id, picture_url, userid, likes, description, style_nightlife, style_outdoor FROM pictures WHERE city = $1', [res.locals.cityid])
     .then((data) => {
@@ -102,11 +95,11 @@ function grabPics (req, res, next) {
         let id = el.id;
         accum[id] = {
           'picture_url': el.picture_url,
-          'userid' : el.userid,
-          'likes' : el.likes,
-          'description' : el.description,
-          'style_nightlife' : el.style_nightlife,
-          'style_outdoor' : el.style_outdoor,
+          'userid': el.userid,
+          'likes': el.likes,
+          'description': el.description,
+          'style_nightlife': el.style_nightlife,
+          'style_outdoor': el.style_outdoor,
         };
         return accum;
 
@@ -119,19 +112,24 @@ function grabPics (req, res, next) {
     })
 }
 
+// middleware for grabbing password 
+const grabPassword = (req, res, next) => {
+
+}
+
 // get route for pictures
 app.get('/pictures', grabPics);
 
 // send login to database
-app.post('/login', grabUserId, updateCityId, (req, res) =>{
+app.post('/login', grabUserId, updateCityId, (req, res) => {
   return res.json(res.locals.userid);
 });
 
 // upload pics
-app.post('/uploadPicture', (req, res) =>{
-  let { userUuid, uploadedFileCloudinaryUrl, uploadText, uploadStyleClickNightOut, uploadStyleClickOutDoor} = req.body;
+app.post('/uploadPicture', (req, res) => {
+  let { userUuid, uploadedFileCloudinaryUrl, uploadText, uploadStyleClickNightOut, uploadStyleClickOutDoor } = req.body;
   db.any('INSERT INTO pictures(id, userid, city, latitude, longitude, likes, description, date, picture_url, style_nightlife, style_outdoor) VALUES (uuid_generate_v4(), $1, $2, $3, $4, $5, $6, $7, $8, $9, $10);'
-  ,[userUuid, res.locals.cityid, res.locals.latitude, res.locals.longitude, 0, uploadText, null, uploadedFileCloudinaryUrl, uploadStyleClickNightOut, uploadStyleClickOutDoor ])
+    , [userUuid, res.locals.cityid, res.locals.latitude, res.locals.longitude, 0, uploadText, null, uploadedFileCloudinaryUrl, uploadStyleClickNightOut, uploadStyleClickOutDoor])
     .then((data) => {
       console.log('Success storing picture info');
       return res.json(data);
@@ -142,21 +140,37 @@ app.post('/uploadPicture', (req, res) =>{
     });
 })
 
-
 // testing connection to database 
-app.post('/city', (req, res, next) => {
-  db.any('INSERT INTO city(id, name, state) VALUES (uuid_generate_v4(), $1, $2);', [res.locals.city, res.locals.state])
+const insertCity = () => {
+  app.post('/city', (req, res, next) => {
+    db.any('INSERT INTO city(id, name, state) VALUES (uuid_generate_v4(), $1, $2);', [res.locals.city, res.locals.state])
+      .then((data) => {
+        res.json(data);
+        next();
+      })
+      .catch((error) => {
+        // error;
+        console.log(error);
+        res.send('ERROR! Could not send to database');
+      });
+  });
+}
+
+
+// NEW ROUTE FOR SIGNUP
+app.post('/signup', insertCity, (req, res, next) => {
+  db.any('INSERT INTO users(id, username, password, city, latitude, longitude) VALUES (uuid_generate_v4(), $1, $2, $3, $4, $5);', [req.body.username, req.body.password, 'e32c724b-ea5e-4994-9d95-80a27d6fc830', req.body.latitude, req.body.longitude])
     .then((data) => {
-      res.json(data);
+      res.json(data)
+      console.log('res.json.data: ', res.json(data));
       next();
     })
     .catch((error) => {
       // error;
       console.log(error);
       res.send('ERROR! Could not send to database');
-    });
+    })
 });
-
 
 // check if server is online and connected
 app.listen(PORT, (err) => {
