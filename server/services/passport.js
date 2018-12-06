@@ -3,18 +3,22 @@ require('dotenv').config();
 var passport = require('passport');
 const pgp = require('pg-promise')();
 const db = require('../db');
+// const { Pool } = require('pg');
+// const pool = new Pool({ connectionString: process.env.SQL_URI });
 
 module.exports = function (db) {
   passport.serializeUser((user, done) => {
-    done(null, user.googleid);
+    console.log('user: ', user)
+    done(null, user.id);
   });
 
-  passport.deserializeUser((googleid, done) => {
+  passport.deserializeUser((id, done) => {
     const queryText = 'select * from users where googleid = $1';
 
-    db.query(queryText, [googleid])
+    db.query(queryText, [id])
       .then(result => {
-        const user = result.rows[0];
+        // console.log('result: ', result)
+        const user = result;
         done(null, user);
       });
   });
@@ -38,7 +42,8 @@ passport.use(new GoogleStrategy({
 
     db.query(queryText, [id, username, googleid])
       .then(result => {
-        const user = result.rows[0];
+        // console.log('result: ', result)
+        const user = result;
         done(null, user);
       })
 

@@ -1,18 +1,17 @@
 // necessary requirements to use express
-const express = require('express');
-const bodyParser = require('body-parser');
-const cors = require('cors')
-const app = express();
-// requirements for using geoip library
 require('dotenv').config();
-const db = require('./db.js');
-require('./services/passport');
-const { Pool } = require('pg');
-const pool = new Pool({ connectionString: process.env.SQL_URI });
+const express = require('express');
+const app = express();
+
 const cookieSession = require('cookie-session');
+const bodyParser = require('body-parser');
 const passport = require('passport');
 
-require('./authRoutes')(app);
+const { Pool } = require('pg');
+const pool = new Pool({ connectionString: process.env.SQL_URI });
+
+const cors = require('cors')
+// requirements for using geoip library
 
 app.use(bodyParser.json());
 app.use(
@@ -31,6 +30,9 @@ require('./authRoutes')(app);
 const GeoIP = require('simple-geoip');
 
 const geoip = new GeoIP(process.env.geoipkey);
+
+const db = require('./db.js');
+require('./services/passport');
 
 const PORT = 3000;
 app.use(cors());
