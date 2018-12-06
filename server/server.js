@@ -161,6 +161,23 @@ app.post('/signup', (req, res, next) => {
     })
 });
 
+// delete route for pics
+function deletePic(req, res, next) {
+  console.log(req.body)
+  db.any('DELETE FROM pictures WHERE picture_url = $1', [req.body.picture_url])
+    .then((data) => {
+      if (data === 0) {
+        return res.send("no pictures to delete")
+      }
+      return res.send(data.config.picture_url) 
+    })
+    .catch((error) => {
+      console.log(error);
+      res.send('ERROR! cannot grab links from database')
+    })
+}
+app.delete('/delete', deletePic);
+
 // check if server is online and connected
 app.listen(PORT, (err) => {
   if (err) console.log(err);

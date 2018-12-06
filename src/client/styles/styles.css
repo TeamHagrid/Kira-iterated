@@ -346,6 +346,17 @@ p {
     display:flex-wrap;
     border: solid white;
 } */
+.submitPicButton {
+    background-color: rgb(245, 136, 128);
+    border: none;
+    color: white;
+    padding: 5px 25px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    transition-duration: 0.4s;
+}
 
 .back-btn {
     color: rgb(83, 83, 83);
@@ -464,6 +475,7 @@ textarea{
     animation: 2.5s ease-out 0s ShrinkTextFadeIn;
     opacity:0.7;
     font-size:19px;
+    color:#FF8DBF;
 }
 
 .upload-style-container{

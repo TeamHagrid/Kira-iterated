@@ -55,15 +55,13 @@ class App extends React.Component {
     this.ExitModal = this.ExitModal.bind(this);
     this.handleSignup = this.handleSignup.bind(this);
     this.handleSignupSubmit = this.handleSignupSubmit.bind(this);
-    // this.handleDeletePic = this.handleDeletePic.bind(this);
-    // this.getComments = this.getComments.bind(this);
+    this.handleDeletePic = this.handleDeletePic.bind(this);
+    // // this.getComments = this.getComments.bind(this);
   }
 
-  // handleDeletePic(event) {
-
-  // }
 
   ExitModal() {
+    console.log(this.state.modalImgInfo)
     this.setState({
       showModal: false,
       showDeleteButton: false,
@@ -71,7 +69,7 @@ class App extends React.Component {
   }
   handleShowModal(event) {
     let key = event.target.id;
-    // console.log(this.state.topPictureList[key].userid)
+    console.log(this.state.topPictureList[key])
     if (this.state.topPictureList[key].userid === this.state.userUuid) {
         this.setState({
             showDeleteButton: true
@@ -160,6 +158,15 @@ class App extends React.Component {
       uploadText: this.state.uploadText
     })
   }
+  handleDeletePic(event) {
+    axios.delete('http://localhost:3000/delete', {
+      data: {picture_url: this.state.modalImgInfo.picture_url}
+    })
+      .then((response) => {
+          this.getTopPictureUrls();
+      })
+      this.ExitModal();
+  }
   handleUsername(event) {
     console.log(event.target.value)
     this.setState({
@@ -235,6 +242,7 @@ class App extends React.Component {
       .catch(err => {
         console.log(err)
       })
+      history.push('/home/')
   }
   getTopPictureUrls() {
     axios.get("http://localhost:3000/pictures")
@@ -307,6 +315,7 @@ class App extends React.Component {
                 handleUrlAndTextSubmit={this.handleUrlAndTextSubmit}
                 getTopPictureUrls={this.getTopPictureUrls}
                 ExitModal={this.ExitModal}
+                handleDeletePic={this.handleDeletePic}
               />
             }
           />

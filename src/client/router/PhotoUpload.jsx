@@ -63,7 +63,7 @@ class PhotoUpload extends React.Component {
                   <form onSubmit={this.props.handleUrlAndTextSubmit}>
                     <textarea className="upload-img-text-input" type="text" value={this.props.uploadText} onChange={this.props.handleUploadText}>
                     </textarea>
-                    <input type="submit" value="Submit" />
+                    <div><input className="submitPicButton" type="submit" value="Submit" /></div>
                   </form>
                 </div>
               </div>
