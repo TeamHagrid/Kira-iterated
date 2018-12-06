@@ -27,6 +27,7 @@ class App extends React.Component {
       uploadStyleClickOutDoor: false,
       topPictureList: {},
       displayPicArr: [],
+      googleID: ''
     }
     this.handleUsername = this.handleUsername.bind(this);
     this.handlePassword = this.handlePassword.bind(this);
@@ -43,7 +44,8 @@ class App extends React.Component {
     this.handleShowModal = this.handleShowModal.bind(this);
     this.ExitModal = this.ExitModal.bind(this);
     this.handleSignup = this.handleSignup.bind(this);
-    this.handleSignupSubmit = this.handleSignupSubmit.bind(this)
+    this.handleSignupSubmit = this.handleSignupSubmit.bind(this);
+    this.handleGoogleLogin = this.handleGoogleLogin.bind(this);
   }
   ExitModal() {
     this.setState({
@@ -128,6 +130,15 @@ class App extends React.Component {
   }
   handleSignup() {
     history.push('/Signup')
+  }
+  handleGoogleLogin() {
+    fetch('http://localhost:3000/auth/google', {
+      mode: 'no-cors',
+      headers: {
+        'Access-Control-Allow-Origin': '*'
+      }
+    })
+    // .then(response => history.push(response.profile.id))
   }
   handlePicSubmit(event) {
     event.presentDefault();
@@ -221,6 +232,7 @@ class App extends React.Component {
                 handlePassword={this.handlePassword}
                 handleLoginSubmit={this.handleLoginSubmit}
                 handleSignup={this.handleSignup}
+                handleGoogleLogin={this.handleGoogleLogin}
               />
             }
           />
