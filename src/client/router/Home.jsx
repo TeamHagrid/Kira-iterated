@@ -2,7 +2,7 @@ import React from 'react';
 import history from './history.jsx'
 import PhotoUpload from './PhotoUpload.jsx'
 import PhotoDisplay from './PhotoDisplay.jsx'
-import CommentsDisplay from './CommentsDisplay.jsx'
+// import CommentsDisplay from './CommentsDisplay.jsx'
 import Collapsible from 'react-collapsible';
 import ReactDOM from 'react-dom';
 

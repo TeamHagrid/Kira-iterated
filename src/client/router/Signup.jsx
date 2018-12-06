@@ -19,7 +19,7 @@ class Signup extends React.Component {
             <Player className="video" muted={true} autoPlay={true} startTime="40" >
                
                {/*  https://vimeo.com/221171310 is the link of the video. the start time for the video is 40 */}
-                <source src="https://bit.ly/2KZdqJy" />
+                <source src="https://my.mixtape.moe/kbqnnl.mp4" />
                 <BigPlayButton position="center" />
                 <ControlBar autoHide={true} disableCompletely={true} />
 

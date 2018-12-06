@@ -115,10 +115,10 @@ function grabPics(req, res, next) {
     })
 }
 
-// middleware for grabbing password 
-const grabPassword = (req, res, next) => {
+// // middleware for grabbing password 
+// const grabPassword = (req, res, next) => {
 
-}
+// }
 
 // get route for pictures
 app.get('/pictures', grabPics);

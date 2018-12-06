@@ -55,13 +55,13 @@ class App extends React.Component {
     this.ExitModal = this.ExitModal.bind(this);
     this.handleSignup = this.handleSignup.bind(this);
     this.handleSignupSubmit = this.handleSignupSubmit.bind(this);
-    this.handleDeletePic = this.handleDeletePic.bind(this);
-    this.getComments = this.getComments.bind(this);
+    // this.handleDeletePic = this.handleDeletePic.bind(this);
+    // this.getComments = this.getComments.bind(this);
   }
 
-  handleDeletePic(event) {
+  // handleDeletePic(event) {
 
-  }
+  // }
 
   ExitModal() {
     this.setState({
