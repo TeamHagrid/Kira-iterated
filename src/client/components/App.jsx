@@ -76,7 +76,8 @@ class App extends React.Component {
       .then(response => {
         let arr = []
         for (let key in response.data) {
-          arr.push(<div id={key.id} className="commentsDisplay">{key.comments}</div>)
+          console.log(response.data[key])
+          arr.push(<div><div className="username-item">{response.data[key].username}</div><li id={response.data[key].id} className="comment-item">{response.data[key].comments}</li></div>)
         }
         this.setState({
           commentsList: response.data,

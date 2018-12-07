@@ -52,6 +52,7 @@ class Home extends React.Component {
       width: "500px",
       height: "auto",
     }
+    console.log(this.props.parentState.displayComments)
     const modal = this.props.parentState.showModal ? (
       <Modal>
         <div className="modal">
@@ -75,6 +76,7 @@ class Home extends React.Component {
                   <div>{this.props.parentState.modalImgInfo.likes} likes </div>
                 </div>
               <div className="bottom-half-container">
+              <div className="commentsHeader">Comments</div>
                 <div className="comments-container">
                   {this.props.parentState.displayComments}
                 </div>

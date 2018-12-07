@@ -132,7 +132,7 @@ app.get('/pictures', grabPics);
 
 
 function grabComments(req, res, next) {
-  db.any('SELECT id, userid, picture_url, comments FROM comments WHERE picture_url = $1', [req.query.picture_url])
+  db.any('SELECT id, userid, picture_url, comments, username FROM comments WHERE picture_url = $1', [req.query.picture_url])
     .then((data) => {
       // console.log(data)
       let returnData = {};
@@ -141,7 +141,8 @@ function grabComments(req, res, next) {
         accum[id] = {
           'id': el.id,
           'userid': el.userid,
-          'comments': el.comments
+          'comments': el.comments,
+          'username': el.username
         };
         return accum;
 
