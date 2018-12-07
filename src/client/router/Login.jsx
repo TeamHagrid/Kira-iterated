@@ -25,7 +25,7 @@ class Login extends React.Component {
           <Player className="video" muted={true} autoPlay={true} startTime="40" >
 
             {/*  https://vimeo.com/221171310 is the link of the video. the start time for the video is 40 */}
-            <source src="https://drive.google.com/file/d/1VU2S9HBc1wM-43luyCUJiwgYRzU2yHc1/view" />
+            <source src="https://my.mixtape.moe/kbqnnl.mp4" />
             <BigPlayButton position="center" />
             <ControlBar autoHide={true} disableCompletely={true} />
 
