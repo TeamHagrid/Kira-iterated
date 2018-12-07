@@ -99,19 +99,6 @@ function grabUserId(req, res, next) {
     });
 }
 
-//TODO: validate that user is a user in database
-// function grabGoogleId(req, res, next) {
-//   db.any('SELECT googleid FROM users WHERE (googleid = $1)', [req.body.googleid])
-//     .then((data) => {
-//       res.locals.googleid = data[0].googleid;
-//       next();
-//     })
-//     .catch((err) => {
-//       console.error('Cannot find user in database');
-//       return res.sendStatus(500);
-//     });
-// }
-
 //grabs the city ID and store into local
 function grabCityId(req, res, next) {
   db.any('SELECT id FROM city WHERE (name = $1 AND state = $2)', [res.locals.city, res.locals.state])
@@ -208,6 +195,3 @@ app.listen(PORT, (err) => {
   if (err) console.log(err);
   else console.log(`Server listening on Port: ${PORT}...`);
 });
-
-// const io = require('socket.io')(server);
-// require('./socketRooms/defineSockets')(io);

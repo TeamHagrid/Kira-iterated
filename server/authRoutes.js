@@ -8,18 +8,6 @@ module.exports = (app) => {
     scope: ['profile', 'email']
   }))
 
-  // app.get('/auth/google/callback', passport.authenticate('google'),
-  //   (req, res) => {
-  //     // Successful authentication, redirect home.
-  //     res.redirect('/home');
-  //   });
-
-  // app.get('/auth/google/callback', passport.authenticate('google'),
-  //   (req, res) => {
-  //     // Successful authentication, redirect home.
-  //     res.redirect('https://t2m.io/CZHzwYuY');
-  //   });
-
   app.get('/auth/google/callback', passport.authenticate('google'),
     (req, res) => {
       // Successful authentication, redirect home.

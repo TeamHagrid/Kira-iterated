@@ -138,8 +138,18 @@ class App extends React.Component {
         'Access-Control-Allow-Origin': '*'
       }
     })
-    // .then(response => history.push(response.profile.id))
   }
+
+  handleGoogleLogout() {
+    fetch('http://localhost:3000/api/logout', {
+      mode: 'no-cors',
+      headers: {
+        'Access-Control-Allow-Origin': '*'
+      }
+    })
+      .then(response => console.log(response));
+  }
+
   handlePicSubmit(event) {
     event.presentDefault();
     axios.post("http://localhost:3000/upload-picture", {
