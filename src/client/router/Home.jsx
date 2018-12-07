@@ -76,6 +76,7 @@ class Home extends React.Component {
                 </div>
               <div className="bottom-half-container">
                 <div className="comments-container">
+                  {this.props.parentState.displayComments}
                 </div>
               </div>
               </div>

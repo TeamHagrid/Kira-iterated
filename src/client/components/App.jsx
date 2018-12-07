@@ -31,6 +31,7 @@ class App extends React.Component {
       uploadStyleClickWinter: false,
       topPictureList: {},
       displayPicArr: [],
+      commentsList: {},
       displayComments: [],
       showDeleteButton: false,
 
@@ -56,7 +57,7 @@ class App extends React.Component {
     this.handleSignup = this.handleSignup.bind(this);
     this.handleSignupSubmit = this.handleSignupSubmit.bind(this);
     this.handleDeletePic = this.handleDeletePic.bind(this);
-    // // this.getComments = this.getComments.bind(this);
+    // this.getComments = this.getComments.bind(this);
   }
 
 
@@ -69,7 +70,19 @@ class App extends React.Component {
   }
   handleShowModal(event) {
     let key = event.target.id;
-    console.log(this.state.topPictureList[key])
+    axios.get("http://localhost:3000/comments", {
+      params: {picture_url: this.state.topPictureList[key].picture_url}
+    })
+      .then(response => {
+        let arr = []
+        for (let key in response.data) {
+          arr.push(<div id={key.id} className="commentsDisplay">{key.comments}</div>)
+        }
+        this.setState({
+          commentsList: response.data,
+          displayComments: arr,
+        })
+      })
     if (this.state.topPictureList[key].userid === this.state.userUuid) {
         this.setState({
             showDeleteButton: true
@@ -257,7 +270,6 @@ class App extends React.Component {
           topPictureList: response.data,
           displayPicArr: arr,
         })
-
       })
       .catch(err => {
         console.log(err)
@@ -265,10 +277,12 @@ class App extends React.Component {
   }
 
   // getComments() {
-  //   axios.get("http://localhost:3000/comments")
+  //   axios.get("http://localhost:3000/comments", {
+  //     picture_url: this.state.topPictureList[key].picture_url
+  //   })
   //     .then(response => {
   //       let arr = []
-  //       for (let key in response.data)
+  //       console.log(response.data)
   //     })
   // }
 

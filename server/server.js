@@ -37,16 +37,21 @@ function getIpAddress(req, res, next) {
 
 // from the ipAddress; store state, city, latitude, and longitude
 function grabLocation(req, res, next) {
-  geoip.lookup('74.87.214.86', (err, data) => {
-    if (err) throw err;
-    else {
-      res.locals.state = data.location.region;
-      res.locals.city = data.location.city;
-      res.locals.latitude = data.location.lat;
-      res.locals.longitude = data.location.lng;
-      return next();
-    }
-  });
+  // geoip.lookup('74.87.214.86', (err, data) => {
+  //   if (err) throw err;
+  //   else {
+  //     res.locals.state = data.location.region;
+  //     res.locals.city = data.location.city;
+  //     res.locals.latitude = data.location.lat;
+  //     res.locals.longitude = data.location.lng;
+  //     return next();
+  //   }
+  // });
+  res.locals.state = "California";
+  res.locals.city = "Los Angeles";
+  res.locals.latitude = 34.0522;
+  res.locals.longitude = 118.2437;
+  return next();
 }
 
 // store id into locals after username and password is submitted
@@ -124,6 +129,32 @@ function grabPics(req, res, next) {
 app.get('/pictures', grabPics);
 
 /// middleware for grabbing oauth token
+
+
+function grabComments(req, res, next) {
+  db.any('SELECT id, userid, picture_url, comments FROM comments WHERE picture_url = $1', [req.query.picture_url])
+    .then((data) => {
+      // console.log(data)
+      let returnData = {};
+      returnData = data.reduce((accum, el) => {
+        let id = el.id;
+        accum[id] = {
+          'id': el.id,
+          'userid': el.userid,
+          'comments': el.comments
+        };
+        return accum;
+
+      }, returnData);
+      console.log('Successfully grabbed comments!');
+      return res.json(returnData);
+    })
+    .catch((error) => {
+      console.log(error);
+      res.send('ERROR! cannot grab comments from database')
+    })
+}
+app.get('/comments', grabComments);
 
 
 // send login to database
