@@ -10,22 +10,28 @@ class Login extends React.Component {
     super(props)
   }
 
+
   render() {
     console.log(this.props.parentState.isAuthenticated)
+    const googleButtonStyle = {
+      padding: '13px',
+      paddingRight: '25px',
+      color: 'blue',
+      backgroundColor: 'white'
+    }
     return (
       <div className="login-container">
         <div className="video-div">
           <Player className="video" muted={true} autoPlay={true} startTime="40" >
 
             {/*  https://vimeo.com/221171310 is the link of the video. the start time for the video is 40 */}
-            <source src="https://drive.google.com/file/d/1VU2S9HBc1wM-43luyCUJiwgYRzU2yHc1/view" />
+            <source src="https://my.mixtape.moe/kbqnnl.mp4" />
             <BigPlayButton position="center" />
             <ControlBar autoHide={true} disableCompletely={true} />
 
           </Player>
 
         </div>
-
 
         {!this.props.parentState.isAuthenticated
           ? <div className='form-login'>
@@ -37,9 +43,10 @@ class Login extends React.Component {
                 </div>
                 <div className='submit'><input className="login-submit" type="submit" value="Submit" /></div>
               </form>
-              
-                <div onClick={this.props.handleSignup} className='signup'><input className="signup-submit" type="submit" value="Sign Up!" /></div>
-            
+
+              <div onClick={this.props.handleSignup} className='signup'><input className="signup-submit" type="submit" value="Sign Up!" /></div>
+              <a href="http://localhost:3000/auth/google"> <div className='signup' ><input className="signup-submit" type="submit" value="Sign In With Google" style={googleButtonStyle} /> </div> </a>
+
             </div>
           </div>
           : <div className="success-login">
