@@ -34,7 +34,6 @@ class App extends React.Component {
       commentsList: {},
       displayComments: [],
       showDeleteButton: false,
-
     }
     this.handleUsername = this.handleUsername.bind(this);
     this.handlePassword = this.handlePassword.bind(this);
@@ -58,6 +57,7 @@ class App extends React.Component {
     this.handleSignupSubmit = this.handleSignupSubmit.bind(this);
     this.handleDeletePic = this.handleDeletePic.bind(this);
     // this.getComments = this.getComments.bind(this);
+    this.handleGoogleLogin = this.handleGoogleLogin.bind(this);
   }
 
 
@@ -165,6 +165,25 @@ class App extends React.Component {
   handleSignup() {
     history.push('/Signup')
   }
+  handleGoogleLogin() {
+    fetch('http://localhost:3000/auth/google', {
+      mode: 'no-cors',
+      headers: {
+        'Access-Control-Allow-Origin': '*'
+      }
+    })
+  }
+
+  handleGoogleLogout() {
+    fetch('http://localhost:3000/api/logout', {
+      mode: 'no-cors',
+      headers: {
+        'Access-Control-Allow-Origin': '*'
+      }
+    })
+      .then(response => console.log(response));
+  }
+
   handlePicSubmit(event) {
     event.presentDefault();
     axios.post("http://localhost:3000/upload-picture", {
@@ -300,6 +319,7 @@ class App extends React.Component {
                 handlePassword={this.handlePassword}
                 handleLoginSubmit={this.handleLoginSubmit}
                 handleSignup={this.handleSignup}
+                handleGoogleLogin={this.handleGoogleLogin}
               />
             }
           />

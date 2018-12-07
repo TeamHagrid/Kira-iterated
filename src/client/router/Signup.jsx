@@ -1,6 +1,5 @@
-
 import React from 'react'
-import { Player, BigPlayButton, ControlBar} from 'video-react';
+import { Player, BigPlayButton, ControlBar } from 'video-react';
 import "../../../node_modules/video-react/dist/video-react.css";
 import Dropzone from 'react-dropzone';
 import request from 'axios';
@@ -16,6 +15,7 @@ class Signup extends React.Component {
     return (
       <div className="signup-container">
         <div className="video-div">
+          
             <Player className="video" muted={true} autoPlay={true} startTime="40" >
                
                {/*  https://vimeo.com/221171310 is the link of the video. the start time for the video is 40 */}
@@ -43,7 +43,6 @@ class Signup extends React.Component {
               <div className="welcome-user">{this.props.parentState.username}</div>
               </div>
           }
-        
       </div>
     )
   }

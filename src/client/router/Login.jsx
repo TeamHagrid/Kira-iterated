@@ -10,8 +10,15 @@ class Login extends React.Component {
     super(props)
   }
 
+
   render() {
     console.log(this.props.parentState.isAuthenticated)
+    const googleButtonStyle = {
+      padding: '13px',
+      paddingRight: '25px',
+      color: 'blue',
+      backgroundColor: 'white'
+    }
     return (
       <div className="login-container">
         <div className="video-div">
@@ -35,7 +42,10 @@ class Login extends React.Component {
                 </div>
                 <div className='submit'><input className="login-submit" type="submit" value="Log In" /></div>
               </form>
-                <div onClick={this.props.handleSignup} className='signup'><input className="signup-submit" type="submit" value="Sign Up!" /></div>
+              
+              <div onClick={this.props.handleSignup} className='signup'><input className="signup-submit" type="submit" value="Sign Up!" /></div>
+              <a href="http://localhost:3000/auth/google"> <div className='signup' ><input className="signup-submit" type="submit" value="Sign In With Google" style={googleButtonStyle} /> </div> </a>
+            
             </div>
           </div>
           : <div className="success-login">

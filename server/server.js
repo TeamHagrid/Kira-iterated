@@ -1,24 +1,45 @@
 // necessary requirements to use express
-const db = require('./db.js');
+require('dotenv').config();
 const express = require('express');
-const bodyParser = require('body-parser');
-const cors = require('cors')
 const app = express();
-require('./services/passport');
 
+const cookieSession = require('cookie-session');
+const bodyParser = require('body-parser');
+const passport = require('passport');
+
+const { Pool } = require('pg');
+const pool = new Pool({ connectionString: process.env.SQL_URI });
+
+const cors = require('cors')
+// requirements for using geoip library
+
+app.use(bodyParser.json());
+app.use(
+  cookieSession({
+    maxAge: 30 * 24 * 60 * 60 * 1000, // 30 days, converted to milliseconds
+    keys: [process.env.cookieKey] // encryption for cookie
+  })
+);
+
+app.use(passport.initialize());
+app.use(passport.session());
+
+// require('./passport')(pool);
 require('./authRoutes')(app);
 
-// requirements for using geoip library
-require('dotenv').config();
 const GeoIP = require('simple-geoip');
 
 const geoip = new GeoIP(process.env.geoipkey);
+
+const db = require('./db.js');
+require('./services/passport');
 
 const PORT = 3000;
 app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(__dirname + '/../../dist'));
+
 
 // automatically call getIpAddress and grabLocation
 app.use(getIpAddress, grabLocation, grabCityId)
@@ -53,6 +74,18 @@ function grabLocation(req, res, next) {
   res.locals.longitude = 118.2437;
   return next();
 }
+// function grabLocation(req, res, next) {
+//   geoip.lookup('74.87.214.86', (err, data) => {
+//     if (err) throw err;
+//     else {
+//       res.locals.state = data.location.region;
+//       res.locals.city = data.location.city;
+//       res.locals.latitude = data.location.lat;
+//       res.locals.longitude = data.location.lng;
+//       return next();
+//     }
+//   });
+// }
 
 // store id into locals after username and password is submitted
 function grabUserId(req, res, next) {
@@ -156,7 +189,6 @@ function grabComments(req, res, next) {
     })
 }
 app.get('/comments', grabComments);
-
 
 // send login to database
 app.post('/login', grabUserId, updateCityId, (req, res) => {
