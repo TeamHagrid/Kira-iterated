@@ -44,7 +44,7 @@ class Login extends React.Component {
               </form>
               
               <div onClick={this.props.handleSignup} className='signup'><input className="signup-submit" type="submit" value="Sign Up!" /></div>
-              <a href="http://localhost:3000/auth/google"> <div className='signup' ><input className="signup-submit" type="submit" value="Sign In With Google" style={googleButtonStyle} /> </div> </a>
+              <a href="http://localhost:3000/auth/google"> <div className='signup' ><input className="google-submit" type="submit" value="Sign In With Google"/> </div> </a>
             
             </div>
           </div>
