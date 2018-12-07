@@ -8,7 +8,7 @@ import PhotoUpload from './../router/PhotoUpload.jsx'
 import axios from 'axios'
 
 const CLOUDINARY_UPLOAD_PRESET = 'wc1bxbvc';
-const CLOUDINARY_UPLOAD_URL = 'https://api.cloudinary.com/v1_1/dnoqyhynt/image/upload';
+const CLOUDINARY_UPLOAD_URL = 'https://api.cloudinary.com/v1_1/wc1bxbvc/image/upload';
 
 class App extends React.Component {
   constructor(props) {
@@ -25,9 +25,15 @@ class App extends React.Component {
       uploadText: "",
       uploadStyleClickNightOut: false,
       uploadStyleClickOutDoor: false,
+      uploadStyleClickSpring: false,
+      uploadStyleClickSummer: false,
+      uploadStyleClickFall: false,
+      uploadStyleClickWinter: false,
       topPictureList: {},
       displayPicArr: [],
-      googleID: ''
+      commentsList: {},
+      displayComments: [],
+      showDeleteButton: false,
     }
     this.handleUsername = this.handleUsername.bind(this);
     this.handlePassword = this.handlePassword.bind(this);
@@ -39,22 +45,50 @@ class App extends React.Component {
     this.uploadImageReturnHome = this.uploadImageReturnHome.bind(this);
     this.uploadOnclickStyleNightOut = this.uploadOnclickStyleNightOut.bind(this);
     this.uploadOnclickStyleOutDoor = this.uploadOnclickStyleOutDoor.bind(this);
+    this.uploadOnclickStyleSpring = this.uploadOnclickStyleSpring.bind(this);
+    this.uploadOnclickStyleSummer = this.uploadOnclickStyleSummer.bind(this);
+    this.uploadOnclickStyleFall = this.uploadOnclickStyleFall.bind(this);
+    this.uploadOnclickStyleWinter = this.uploadOnclickStyleWinter.bind(this);
     this.handleUrlAndTextSubmit = this.handleUrlAndTextSubmit.bind(this);
     this.getTopPictureUrls = this.getTopPictureUrls.bind(this);
     this.handleShowModal = this.handleShowModal.bind(this);
     this.ExitModal = this.ExitModal.bind(this);
     this.handleSignup = this.handleSignup.bind(this);
     this.handleSignupSubmit = this.handleSignupSubmit.bind(this);
+    this.handleDeletePic = this.handleDeletePic.bind(this);
+    // this.getComments = this.getComments.bind(this);
     this.handleGoogleLogin = this.handleGoogleLogin.bind(this);
   }
+
+
   ExitModal() {
+    console.log(this.state.modalImgInfo)
     this.setState({
       showModal: false,
+      showDeleteButton: false,
     });
   }
   handleShowModal(event) {
     let key = event.target.id;
-    console.log(this.state.topPictureList[key])
+    axios.get("http://localhost:3000/comments", {
+      params: {picture_url: this.state.topPictureList[key].picture_url}
+    })
+      .then(response => {
+        let arr = []
+        for (let key in response.data) {
+          console.log(response.data[key])
+          arr.push(<div><div className="username-item">{response.data[key].username}</div><li id={response.data[key].id} className="comment-item">{response.data[key].comments}</li></div>)
+        }
+        this.setState({
+          commentsList: response.data,
+          displayComments: arr,
+        })
+      })
+    if (this.state.topPictureList[key].userid === this.state.userUuid) {
+        this.setState({
+            showDeleteButton: true
+        })
+    };
     this.setState({
       showModal: true,
       modalImgInfo: this.state.topPictureList[key],
@@ -67,11 +101,11 @@ class App extends React.Component {
       const formData = new FormData();
       formData.append("file", image);
       formData.append("upload_preset", CLOUDINARY_UPLOAD_PRESET); // Replace the preset name with your own
-      formData.append("api_key", 484393632848713); // Replace API key with your own Cloudinary API key
+      formData.append("api_key", 981579266528747); // Replace API key with your own Cloudinary API key
       formData.append("timestamp", (Date.now() / 1000) | 0);
       // Replace cloudinary upload URL with yours
       return axios.post(
-        "https://api.cloudinary.com/v1_1/dwbr9kbj2/image/upload",
+        CLOUDINARY_UPLOAD_URL,
         formData,
         { headers: { "X-Requested-With": "XMLHttpRequest" } })
         .then(response => {
@@ -157,6 +191,15 @@ class App extends React.Component {
       uploadText: this.state.uploadText
     })
   }
+  handleDeletePic(event) {
+    axios.delete('http://localhost:3000/delete', {
+      data: {picture_url: this.state.modalImgInfo.picture_url}
+    })
+      .then((response) => {
+          this.getTopPictureUrls();
+      })
+      this.ExitModal();
+  }
   handleUsername(event) {
     console.log(event.target.value)
     this.setState({
@@ -193,6 +236,26 @@ class App extends React.Component {
       uploadStyleClickOutDoor: !this.state.uploadStyleClickOutDoor,
     })
   }
+  uploadOnclickStyleSpring() {
+    this.setState({
+      uploadStyleClickSpring: !this.state.uploadStyleClickSpring,
+    })
+  }
+  uploadOnclickStyleSummer() {
+    this.setState({
+      uploadStyleClickSummer: !this.state.uploadStyleClickSummer,
+    })
+  }
+  uploadOnclickStyleFall() {
+    this.setState({
+      uploadStyleClickFall: !this.state.uploadStyleClickFall,
+    })
+  }
+  uploadOnclickStyleWinter() {
+    this.setState({
+      uploadStyleClickWinter: !this.state.uploadStyleClickWinter,
+    })
+  }
   handleUrlAndTextSubmit() {
     event.preventDefault();
     axios.post("http://localhost:3000/uploadPicture", {
@@ -201,6 +264,10 @@ class App extends React.Component {
       uploadText: this.state.uploadText,
       uploadStyleClickNightOut: this.state.uploadStyleClickNightOut,
       uploadStyleClickOutDoor: this.state.uploadStyleClickOutDoor,
+      uploadStyleClickSpring: this.state.uploadStyleClickSpring,
+      uploadStyleClickSummer: this.state.uploadStyleClickSummer,
+      uploadStyleClickFall: this.state.uploadStyleClickFall,
+      uploadStyleClickWinter: this.state.uploadStyleClickWinter,
     })
       .then(response => {
         console.log(response);
@@ -208,6 +275,7 @@ class App extends React.Component {
       .catch(err => {
         console.log(err)
       })
+      history.push('/home/')
   }
   getTopPictureUrls() {
     axios.get("http://localhost:3000/pictures")
@@ -222,12 +290,21 @@ class App extends React.Component {
           topPictureList: response.data,
           displayPicArr: arr,
         })
-
       })
       .catch(err => {
         console.log(err)
       })
   }
+
+  // getComments() {
+  //   axios.get("http://localhost:3000/comments", {
+  //     picture_url: this.state.topPictureList[key].picture_url
+  //   })
+  //     .then(response => {
+  //       let arr = []
+  //       console.log(response.data)
+  //     })
+  // }
 
   render() {
     return (
@@ -266,9 +343,14 @@ class App extends React.Component {
                 handleUploadText={this.handleUploadText}
                 uploadOnclickStyleOutDoor={this.uploadOnclickStyleOutDoor}
                 uploadOnclickStyleNightOut={this.uploadOnclickStyleNightOut}
+                uploadOnclickStyleSpring={this.uploadOnclickStyleSpring}
+                uploadOnclickStyleSummer={this.uploadOnclickStyleSummer}
+                uploadOnclickStyleFall={this.uploadOnclickStyleFall}
+                uploadOnclickStyleWinter={this.uploadOnclickStyleWinter}
                 handleUrlAndTextSubmit={this.handleUrlAndTextSubmit}
                 getTopPictureUrls={this.getTopPictureUrls}
                 ExitModal={this.ExitModal}
+                handleDeletePic={this.handleDeletePic}
               />
             }
           />

@@ -32,7 +32,6 @@ class Login extends React.Component {
           </Player>
 
         </div>
-
         {!this.props.parentState.isAuthenticated
           ? <div className='form-login'>
             <div className='form-inner'>
@@ -41,12 +40,12 @@ class Login extends React.Component {
                   <input className="login-text" placeholder="user name" type="text" value={this.props.username} onChange={this.props.handleUsername} />
                   <input className="login-text" placeholder="password" type="password" value={this.props.password} onChange={this.props.handlePassword} />
                 </div>
-                <div className='submit'><input className="login-submit" type="submit" value="Submit" /></div>
+                <div className='submit'><input className="login-submit" type="submit" value="Log In" /></div>
               </form>
-
+              
               <div onClick={this.props.handleSignup} className='signup'><input className="signup-submit" type="submit" value="Sign Up!" /></div>
               <a href="http://localhost:3000/auth/google"> <div className='signup' ><input className="signup-submit" type="submit" value="Sign In With Google" style={googleButtonStyle} /> </div> </a>
-
+            
             </div>
           </div>
           : <div className="success-login">

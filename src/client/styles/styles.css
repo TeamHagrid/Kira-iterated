@@ -231,7 +231,7 @@ p {
     flex-direction: column;
     justify-content: center;
     position: relative;
-    top: -20px;
+    top: -5px;
 }
 
 .form-signinner {
@@ -240,7 +240,7 @@ p {
     display:flex;
     justify-content: center;
     position: relative;
-    top: -20px;
+    top: 5px;
 }
 
 .login-container {
@@ -346,6 +346,17 @@ p {
     display:flex-wrap;
     border: solid white;
 } */
+.submitPicButton {
+    background-color: rgb(245, 136, 128);
+    border: none;
+    color: white;
+    padding: 5px 25px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    transition-duration: 0.4s;
+}
 
 .back-btn {
     color: rgb(83, 83, 83);
@@ -358,10 +369,47 @@ p {
     height:30px;
     width: 30px;
 }
-
 .back-btn-container {
     position:absolute;
     right:0;
+}
+
+.delete-button {
+    background-color: rgb(245, 136, 128);
+    border: none;
+    color: white;
+    padding: 5px 25px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    transition-duration: 0.4s;
+}
+
+.delete-button:hover {
+    background-color: white;
+    border: 2px solid rgb(245, 136, 128);
+    color: rgb(245, 136, 128);
+    border-radius: 4px;
+}
+
+.delete-button-container {
+    position:relative;
+    top:80;
+}
+
+.close-button {
+    color: rgb(83, 83, 83);
+    font-family: 'Fredoka One', cursive;
+    background:none;
+    z-index:-100;
+    outline:none;
+    font-size:15px;
+    border:none;
+    height:30px;
+    width: 30px;
+    position:absolute;
+    z-index: 0;
 }
 
 .upload-container{
@@ -414,7 +462,7 @@ textarea{
     border-radius:25px;
     opacity: 0.7;
     background-color:rgba(255, 255, 255, 0.1);
-    border: 2px solid #3498db;
+    border: 2px solid #FF8DBF;
 }
 .welcome-text {
     animation: 2s ease-out 0s ShrinkTextFadeIn;
@@ -427,9 +475,17 @@ textarea{
     animation: 2.5s ease-out 0s ShrinkTextFadeIn;
     opacity:0.7;
     font-size:19px;
+    color:#FF8DBF;
 }
 
 .upload-style-container{
+    margin: 10px 0px;
+    padding:20px auto;
+    display:flex;
+    flex-direction:row;
+}
+
+.upload-seasons-container{
     margin: 10px 0px;
     padding:20px auto;
     display:flex;
@@ -494,6 +550,7 @@ textarea{
 .modal-left-container{
     padding-top:90px;
     background: rgb(27, 27, 27);
+    overflow:hidden;
 
 }
 .modal-right-container{
@@ -506,13 +563,47 @@ textarea{
 .top-right-inner-container{
     margin-top:10px;
     padding-top:20px;
-    padding-left:30px;
+    padding-left:24px;
 }
+.bottom-half-container{
+    margin-top: 30px;
+    margin-bottom: 15px;
+    width: 350px;
+    height: 550px;
+    position:relative;
+}
+.commentsHeader{
+    border-bottom: 3px solid #ddd;
+    width:350px;
+    font-family: 'Fredoka One', cursive;
+}
+.comments-container{
+    position:absolute;
+    display:flex;
+    flex-direction:column;
+    width:350px;
+    height:525px;
+    font-family:"Arial", sans-serif;
+}
+.username-item{
+    font-weight:bold;
+}
+.comment-item{
+    position: relative;
+    display: flex;
+    padding: 10px 15px;
+    background-color: #fff;
+    border-bottom: 1px solid #ddd;
+    width:320px
+}
+
 .top-right-container{
     padding:2px 4px;
     color: rgb(83, 83, 83);
     font-family: 'Fredoka One', cursive;
-    float:right
+    float:right;
+    position:relative;
+    left:-30px;
 }
 
 .modal-text{

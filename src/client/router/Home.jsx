@@ -2,6 +2,7 @@ import React from 'react';
 import history from './history.jsx'
 import PhotoUpload from './PhotoUpload.jsx'
 import PhotoDisplay from './PhotoDisplay.jsx'
+// import CommentsDisplay from './CommentsDisplay.jsx'
 import Collapsible from 'react-collapsible';
 import ReactDOM from 'react-dom';
 
@@ -27,6 +28,7 @@ class Modal extends React.Component {
   componentWillUnmount() {
     // Remove the element from the DOM when we unmount
     modalRoot.removeChild(this.el);
+    
   }
 
   render() {
@@ -45,26 +47,27 @@ class Home extends React.Component {
     super(props)
   }
 
-
-
-
   render() {
     const popUpImg = {
       width: "500px",
       height: "auto",
     }
+    console.log(this.props.parentState.displayComments)
     const modal = this.props.parentState.showModal ? (
       <Modal>
-        <div className="modal" onClick={this.props.ExitModal}>
+        <div className="modal">
           <div className="modal-container">
             <div className="modal-left-container">
               <img src={this.props.parentState.modalImgInfo.picture_url} style={popUpImg} />
             </div>
             <div className="modal-right-container">
               <div className="top-right-container">
-                X
-                            </div>
+                <div onClick={this.props.ExitModal} className='close'><input className="close-button" type="submit" value="X" /></div>
+              </div>
               <div className="top-right-inner-container">
+                <div className="delete-button-container">
+                  {this.props.parentState.showDeleteButton?<div onClick={this.props.handleDeletePic} className='delete'><input className="delete-button" type="submit" value="Delete" /></div>: null}
+                </div>
                 <div>
                   <img src="http://res.cloudinary.com/dwbr9kbj2/image/upload/w_70,h_70,c_thumb,r_max,g_face/v1543878350/ccbd98n2hjesusaqzwl7.png" />
                 </div>
@@ -72,6 +75,12 @@ class Home extends React.Component {
                 <div className="likes-container">
                   <div>{this.props.parentState.modalImgInfo.likes} likes </div>
                 </div>
+              <div className="bottom-half-container">
+              <div className="commentsHeader">Comments</div>
+                <div className="comments-container">
+                  {this.props.parentState.displayComments}
+                </div>
+              </div>
               </div>
             </div>
           </div>
@@ -111,6 +120,10 @@ class Home extends React.Component {
                 handleUploadText={this.props.handleUploadText}
                 uploadOnclickStyleOutDoor={this.props.uploadOnclickStyleOutDoor}
                 uploadOnclickStyleNightOut={this.props.uploadOnclickStyleNightOut}
+                uploadOnclickStyleSpring={this.props.uploadOnclickStyleSpring}
+                uploadOnclickStyleSummer={this.props.uploadOnclickStyleSummer}
+                uploadOnclickStyleFall={this.props.uploadOnclickStyleFall}
+                uploadOnclickStyleWinter={this.props.uploadOnclickStyleWinter}
                 handleUrlAndTextSubmit={this.props.handleUrlAndTextSubmit}
               />
             } />

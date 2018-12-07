@@ -58,20 +58,21 @@ function getIpAddress(req, res, next) {
 
 // from the ipAddress; store state, city, latitude, and longitude
 function grabLocation(req, res, next) {
+  // geoip.lookup('74.87.214.86', (err, data) => {
+  //   if (err) throw err;
+  //   else {
+  //     res.locals.state = data.location.region;
+  //     res.locals.city = data.location.city;
+  //     res.locals.latitude = data.location.lat;
+  //     res.locals.longitude = data.location.lng;
+  //     return next();
+  //   }
+  // });
   res.locals.state = "California";
   res.locals.city = "Los Angeles";
-  res.locals.latitude = "34.0522";
-  res.locals.longitude = "118.2437";
+  res.locals.latitude = 34.0522;
+  res.locals.longitude = 118.2437;
   return next();
-  geoip.lookup('74.87.214.86', (err, data) => {
-    if (err) throw err;
-    else {
-      res.locals.state = data.location.region;
-      res.locals.city = data.location.city;
-      res.locals.latitude = data.location.lat;
-      res.locals.longitude = data.location.lng;
-    }
-  });
 }
 // function grabLocation(req, res, next) {
 //   geoip.lookup('74.87.214.86', (err, data) => {
@@ -152,8 +153,42 @@ function grabPics(req, res, next) {
     })
 }
 
+// // middleware for grabbing password 
+// const grabPassword = (req, res, next) => {
+
+// }
+
 // get route for pictures
 app.get('/pictures', grabPics);
+
+/// middleware for grabbing oauth token
+
+
+function grabComments(req, res, next) {
+  db.any('SELECT id, userid, picture_url, comments, username FROM comments WHERE picture_url = $1', [req.query.picture_url])
+    .then((data) => {
+      // console.log(data)
+      let returnData = {};
+      returnData = data.reduce((accum, el) => {
+        let id = el.id;
+        accum[id] = {
+          'id': el.id,
+          'userid': el.userid,
+          'comments': el.comments,
+          'username': el.username
+        };
+        return accum;
+
+      }, returnData);
+      console.log('Successfully grabbed comments!');
+      return res.json(returnData);
+    })
+    .catch((error) => {
+      console.log(error);
+      res.send('ERROR! cannot grab comments from database')
+    })
+}
+app.get('/comments', grabComments);
 
 // send login to database
 app.post('/login', grabUserId, updateCityId, (req, res) => {
@@ -189,6 +224,23 @@ app.post('/signup', (req, res, next) => {
       res.send('ERROR! Could not send to database');
     })
 });
+
+// delete route for pics
+function deletePic(req, res, next) {
+  console.log(req.body)
+  db.any('DELETE FROM pictures WHERE picture_url = $1', [req.body.picture_url])
+    .then((data) => {
+      if (data === 0) {
+        return res.send("no pictures to delete")
+      }
+      return res.send(data.config.picture_url) 
+    })
+    .catch((error) => {
+      console.log(error);
+      res.send('ERROR! cannot grab links from database')
+    })
+}
+app.delete('/delete', deletePic);
 
 // check if server is online and connected
 app.listen(PORT, (err) => {
