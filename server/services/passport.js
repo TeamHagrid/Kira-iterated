@@ -6,31 +6,32 @@ const db = require('../db');
 // const { Pool } = require('pg');
 // const pool = new Pool({ connectionString: process.env.SQL_URI });
 
-module.exports = function (db) {
-  passport.serializeUser((user, done) => {
-    console.log('user: ', user)
-    done(null, user.id);
-  });
+// module.exports = function (db) {
+passport.serializeUser((user, done) => {
+  console.log('user: ', user)
+  done(null, user.id);
+});
 
-  passport.deserializeUser((id, done) => {
-    const queryText = 'select * from users where googleid = $1';
+passport.deserializeUser((user, done) => {
+  // const queryText = 'select * from users where googleid = $1';
 
-    db.query(queryText, [id])
-      .then(result => {
-        // console.log('result: ', result)
-        const user = result;
-        done(null, user);
-      });
-  });
+  // db.query(queryText, [id])
+  //   .then(result => {
+  //     // console.log('result: ', result)
+  //     const user = result;
+  //     done(null, user);
+  //   });
+  done(null, user);
+});
 
-}
+// }
 
 passport.use(new GoogleStrategy({
   clientID: process.env.googleClientID,
   clientSecret: process.env.clientSecret,
   callbackURL: "/auth/google/callback"
 },
-  (accessToken, refreshToken, profile, done) => {
+  (accessToken, refreshToken, profile, cb) => {
     const googleid = profile.id;
     const username = profile.displayName;
     const id = 1234;
@@ -46,15 +47,7 @@ passport.use(new GoogleStrategy({
         const user = result;
         done(null, user);
       })
-
-    // TODO: use pg promise, db.one to find out if user already exists in db with googleid --> see Mongoose Queries section
-
-    // db.any('INSERT INTO users(id, username, googleid) VALUES (uuid_generate_v4(), $1, $2);', [profile.displayName, profile.id])
-    //   .then(user => {
-    //     done(null, user);
-    //     // console.log('data: ', data)
-    //   })
-    //   .catch(err => console.log(err))
+    return cb(null, { id: googleid });
   }
 ));
 
